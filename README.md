@@ -12,6 +12,7 @@ This project is a Python script that interacts with the [Notion API](https://dev
 - Python 3.x
 - Virtual environment (optional but highly recommended)
 - [Notion API integration token](https://www.notion.so/profile/integrations)
+
 ### Installation
 1. Clone the Repository
    ```
@@ -28,12 +29,34 @@ This project is a Python script that interacts with the [Notion API](https://dev
    pip install -r docs/requirements.txt
    ````
 
+### Configuration
+1. Create a `.env` File:
+   - In the root directory of the project, create a file named `.env`.
+2. Add your Notion Taken and Database IDs:
+    - Replace `your_integration_token` with your actual Notion integration token.
+    - List the database IDs you want to include, separated by commas and **without blank spaces**.
+        ```
+        NOTION_TOKEN=your_integration_token
+        DATABASE_IDS=database_ide1,database_id2,database_ide3
+        ```
 
+###
+Running the Script
+1. Execute the Script:
+   `python src/main.py`
+2. Output:
+   - The script will output the title and URL of a randomly selected page grom your specified Notion databases
+        ```
+        Random page selected: Fun Retrospectives
+        Page URL: https://www.notion.so/Fun-Retrospectives-UUID
+        ```
 
+## Troubleshooting
+- 400 Bad Request: Ensure that your database IDs and Notion token are correct and that the integration has access to the databases.
+- 404 Not Found: Verify that the database IDs are accurate and that the integration is shared with the databases.
 
-## Token and .env file
-Replace your_integration_token with your actual Notion integration token, and list the database IDs you want to include, separated by commas and **whithout blank spaces**
-```
-NOTION_TOKEN=your_integration_token
-DATABASE_IDS=database_id1,database_id2,database_id3
-````
+![addConnections.jpeg](images/addConnections.jpeg)
+Image Source: https://community.make.com/t/setting-up-a-notion-watch-database-item-database-id-not-found/4064
+
+## Contributing
+Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
