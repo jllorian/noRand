@@ -1,4 +1,4 @@
-# NoRad
+# NoRand
 > Notion Random Page Fetcher
 
 <p align="center">
