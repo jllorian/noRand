@@ -1,12 +1,9 @@
 # NoRad
 > Notion Random Page Fetcher
 
-![logo](images/logo.png "playground generated logo")
-
 <p align="center">
-  <img src="images/loogo.png" alt="playground-generated logo>
+  <img src="images/loogo.png" alt="playground-generated logo">
 </p>
-
 
 This project is a Python script that interacts with the [Notion API](https://developers.notion.com/reference/intro) to fetch entries from specified databases and select a random page. It's designed to help users explore their Notion content in a dynamic and engaging way.
 
