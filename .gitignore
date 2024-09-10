@@ -1,4 +1,4 @@
 # Ignore the .env file
 .env
 
-.DS_Store
+.DS_Store.git.bfg-report
