@@ -22,8 +22,13 @@ This project is a Python script that interacts with the [Notion API](https://dev
    ```
    python -m venv ../venv
    source ../venv/bin/activate # On Windows, use `venv\Scripts\activate`
-```
+   ```
 3. Install Required Packages
+   ```
+   pip install -r docs/requirements.txt
+   ````
+
+
 
 
 ## Token and .env file
