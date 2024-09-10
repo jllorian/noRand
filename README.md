@@ -1,6 +1,13 @@
 # NoRad
 > Notion Random Page Fetcher
 
+![logo](images/logo.png "playground generated logo")
+
+<p align="center">
+  <img src="images/loogo.png" alt="playground-generated logo>
+</p>
+
+
 This project is a Python script that interacts with the [Notion API](https://developers.notion.com/reference/intro) to fetch entries from specified databases and select a random page. It's designed to help users explore their Notion content in a dynamic and engaging way.
 
 ## Features
@@ -55,7 +62,7 @@ Running the Script
 - 400 Bad Request: Ensure that your database IDs and Notion token are correct and that the integration has access to the databases.
 - 404 Not Found: Verify that the database IDs are accurate and that the integration is shared with the databases.
 
-![addConnections.jpeg](images/addConnections.jpeg)
+![addConnections.jpeg](images/addConnections.jpeg "Common issue")
 Image Source: https://community.make.com/t/setting-up-a-notion-watch-database-item-database-id-not-found/4064
 
 ## Contributing
