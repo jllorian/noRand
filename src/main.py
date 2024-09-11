@@ -1,7 +1,7 @@
 import os
 import random
-import requests
 from dotenv import load_dotenv
+from utils import create_headers, fetch_database_entries
 
 # Load and return environment variables.
 def load_environment_variables():
@@ -10,25 +10,6 @@ def load_environment_variables():
     if NOTION_TOKEN is None or DATABASE_IDS is None:
         raise ValueError("Environment variables must be set")
     return NOTION_TOKEN, DATABASE_IDS.split(',')
-
-# Headers for Notion API requests.
-# Manually updated: 'Notion-Version' is declare to avoid breaking changes that might occur if the API were updated without the client being aware.
-def create_headers(notion_token):
-    return {
-        'Authorization': f'Bearer {notion_token}',
-        'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28'
-    }
-
-# Fetch entries from a Notion database and returns them.
-def fetch_database_entries(database_id, headers):
-    url = f'https://api.notion.com/v1/databases/{database_id}/query'
-    response = requests.post(url, headers=headers)
-    if response.status_code == 200:
-        return response.json().get('results', [])
-    else:
-        print(f"Error fetching database {database_id}:{response.status_code} - {response.text}")
-        return []
 
 # List all pages from the specified databases
 def collect_all_pages(database_ids, headers):
