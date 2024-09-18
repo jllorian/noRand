@@ -1,4 +1,5 @@
 import requests
+import random
 
 def create_headers(notion_token):
     return {
@@ -14,3 +15,17 @@ def fetch_database_entries(database_id, headers):
         return response.json().get('results', [])
     else:
         return []
+    
+def get_random_page(pages):
+    if pages:
+        return random.choice(pages)
+    else:
+        return None
+    
+def display_random_page_info(page):
+    if page:
+        page_title = page['properties'].get('Name', {}).get('title', [{}])[0].get('plain_text', 'Untitled')
+        page_url = page.get('url', 'No URL available')
+        return {'title': page_title, 'url': page_url}
+    else:
+        return {'error': 'No pages found'}
