@@ -3,3 +3,6 @@
 
 .DS_Store
 .git.bfg-report
+.vscode
+__pycache__
+.venv

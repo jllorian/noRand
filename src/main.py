@@ -1,59 +1,39 @@
-import requests
-import random
 import os
 from dotenv import load_dotenv
+from utils import create_headers, fetch_database_entries, get_random_page, display_random_page_info
 
-# Load environment variables
-load_dotenv()
+def load_environment_variables():
+    NOTION_TOKEN = os.getenv('NOTION_TOKEN')
+    DATABASE_IDS = os.getenv('DATABASE_IDS')
+    if NOTION_TOKEN is None or DATABASE_IDS is None:
+        raise ValueError("Environment variables must be set")
+    return NOTION_TOKEN, DATABASE_IDS.split(',')
 
-# Constants for Notion API accesss
-NOTION_TOKEN = os.getenv('NOTION_TOKEN')
-DATABASE_IDS = os.getenv('DATABASE_IDS')
-
-if not NOTION_TOKEN or not DATABASE_IDS:
-    raise ValueError("Environment variables must be set")
-DATABASE_IDS = DATABASE_IDS.split(',')
-
-# Headers
-# Manually updated: 'Notion-Version' is declare to avoid breaking changes that might occur if the API were updated without the client being aware.
-headers = {
-    'Authorization': f'Bearer {NOTION_TOKEN}',
-    'Content-Type': 'application/json',
-    'Notion-Version': '2022-06-28'
-}
-
-def fetch_database_entries(database_id):
-    url = f'https://api.notion.com/v1/databases/{database_id}/query'
-    response = requests.post(url, headers=headers)
-    if response.status_code == 200:
-        return response.json()['results']
-    else:
-        print(f"Error fetching database {database_id}:{response.status_code} - {response.text}")
-        return None
-    
-def get_random_page():
+def collect_all_pages(database_ids, headers):
     all_pages = []
-    for db_id in DATABASE_IDS:
-        entries = fetch_database_entries(db_id)
-        if entries:
-            all_pages.extend(entries)
-            
-    if all_pages:
-        random_page = random.choice(all_pages)
-        return random_page
-    else:
-        return None
-    
+    for db_id in database_ids:
+        entries = fetch_database_entries(db_id, headers)
+        all_pages.extend(entries)
+    return all_pages
+
 def main():
-    random_page = get_random_page()
-    if random_page:
-        page_id = random_page['id']
-        page_title = random_page['properties'].get('Name', {}).get('title', [{}])[0].get('plain_text', 'Untitled')
-        page_url = random_page['url']
-        print(f"Random page selected: {page_title}")
-        print(f"Page URL: {page_url}")
+    load_dotenv()
+    try:
+        notion_token, database_ids = load_environment_variables()
+    except ValueError as e:
+        print(e)
+        return
+    
+    headers = create_headers(notion_token)
+    all_pages = collect_all_pages(database_ids, headers)
+    random_page = get_random_page(all_pages)
+    
+    page_info = display_random_page_info(random_page)
+    if 'error' in page_info:
+        print(page_info['error'])
     else:
-        print("No pages found in the specified databases.")
-        
+        print(f"Random page selected: {page_info['title']}")
+        print(f"Page URL: {page_info['url']}")
+
 if __name__ == "__main__":
     main()
