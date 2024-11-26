@@ -10,6 +10,9 @@ def fetch_random_page():
     database_ids = data.get('database_ids')
     print(f"Received Notion Token: {notion_token}")
     print(f"Received Database IDs: {database_ids}")
+    
+    if not isinstance(database_ids, list):
+        return jsonify({'error': 'Database IDs must be a list'}), 400
 
     headers = create_headers(notion_token)
     all_pages = []
