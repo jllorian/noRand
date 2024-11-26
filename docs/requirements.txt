@@ -1,7 +1,9 @@
 certifi==2024.8.30
 charset-normalizer==3.3.2
+flake8==7.1.1
 idna==3.8
 python-dotenv==1.0.1
 requests==2.32.3
 urllib3==2.2.2
 pytest==8.3.3
+pytest-cov==6.0.0
